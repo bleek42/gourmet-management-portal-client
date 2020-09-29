@@ -1,55 +1,88 @@
 import React, { useState } from 'react';
-import { Grid, FormControl, Button, InputLabel, Input, FormHelperText } from '@material-ui/core';
+import {
+  Grid,
+  FormControl,
+  Button,
+  InputLabel,
+  Input,
+  FormHelperText,
+} from '@material-ui/core';
 import { API_TOKEN, API_URL } from '../../config';
 
 const SignUp = () => {
+  const [signUp, setSignUp] = useState({
+    username: '',
+    email: '',
+    password: '',
+    pwCheck: '',
+  });
 
-  const [signUp, setSignUp] = useState([]);
+  const handleChange = (ev) => {
+    const { name, value } = ev.target
+    setSignUp({
+      ...signUp,
+      [name]: value,
+    })
+  };
 
   const submitSignup = async (ev) => {
     ev.preventDefault();
-    const { username, email, password, pwCheck } = ev.target.value;
-    console.log(username, email, password, pwCheck);
-    if (password === pwCheck) {
-      alert('passwords do not match!')
-    }
     try {
       const req = {
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
         },
-        body: {
-          username: JSON.stringify(username),
-          email: JSON.stringify(email),
-          password: JSON.stringify(password)
-        }
-      }
-      const res = await fetch(req, `${API_URL}/users/new`);
+        body: JSON.stringify(signUp)
+      };
+      const res = await fetch(`${API_URL}/users/new`, req);
       const data = await res.json();
-      setSignUp([data]);
+      console.log(data);
+      setSignUp(data);
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      alignItems="center"
-    >
+    <Grid container direction="row" justify="center" alignItems="center">
       <Grid item>
         <FormControl onSubmit={submitSignup}>
-          <Input name="username" placeholder="Username" type="text"></Input>
-          <Input name="email" placeholder="Email" type="text" />
-          <Input name="password" placeholder="Password" type="text" />
-          <Input name="pwCheck" placeholder="Re-Enter Password" type="text" />
-          <Button type="submit" fullWidth variant="contained" color="primary">Submit</Button>
+          <Input
+            name="username"
+            value={signUp.username}
+            placeholder="Username"
+            type="text"
+            onChange={handleChange}
+          ></Input>
+          <Input
+            name="email"
+            value={signUp.email}
+            placeholder="Email"
+            type="text"
+            onChange={handleChange}
+          />
+          <Input
+            name="password"
+            value={signUp.password}
+            placeholder="Password"
+            type="text"
+            onChange={handleChange}
+          />
+          <Input
+            name="pwCheck"
+            value={signUp.pwCheck}
+            placeholder="Re-Enter Password"
+            type="text"
+            onChange={handleChange}
+          />
+          <Button type="submit" fullWidth variant="contained" color="primary">
+            Submit
+					</Button>
         </FormControl>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;
