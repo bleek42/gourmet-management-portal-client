@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
+import { Grid, FormControl, Button, InputLabel, Input, FormHelperText } from '@material-ui/core';
 import { API_TOKEN, API_URL } from '../../config';
 
 const SignUp = () => {
@@ -9,6 +9,7 @@ const SignUp = () => {
   const submitSignup = async (ev) => {
     ev.preventDefault();
     const { username, email, password, pwCheck } = ev.target.value;
+    console.log(username, email, password, pwCheck);
     if (password === pwCheck) {
       alert('passwords do not match!')
     }
@@ -44,6 +45,7 @@ const SignUp = () => {
           <Input name="email" placeholder="Email" type="text" />
           <Input name="password" placeholder="Password" type="text" />
           <Input name="pwCheck" placeholder="Re-Enter Password" type="text" />
+          <Button type="submit" fullWidth variant="contained" color="primary">Submit</Button>
         </FormControl>
       </Grid>
     </Grid>
