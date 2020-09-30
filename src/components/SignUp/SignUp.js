@@ -25,9 +25,11 @@ const SignUp = () => {
     })
   };
 
-  const submitSignup = async (ev) => {
-    ev.preventDefault();
+  const submitSignup = async (user) => {
     try {
+      const newUser = {
+
+      }
       const req = {
         method: 'POST',
         headers: {
