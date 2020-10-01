@@ -6,7 +6,8 @@ export const submitSignup = async (user) => {
     const req = {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_TOKEN}`,
       },
       body: JSON.stringify(user)
     };
@@ -18,11 +19,3 @@ export const submitSignup = async (user) => {
     console.error(err);
   }
 };
-
-const myUser = {
-  username: 'anotherUser',
-  email: 'anotherUser@gmail.com',
-  password: 'an0th3rP@ssword'
-}
-
-submitSignup(myUser);

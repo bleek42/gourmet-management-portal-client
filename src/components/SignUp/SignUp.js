@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Grid,
-  FormControl,
+  FormGroup,
   Button,
   InputLabel,
   Input,
@@ -33,13 +33,14 @@ const SignUp = () => {
     }  
   */
 
-  const handleSubmit = () => {
-    submitSignup(signUp).then((res) => (
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    const { name, value } = ev.target;
+    submitSignup(signUp).then(res => (
       res.json().then(data => (
         setSignUp({
-          username: data.username,
-          email: data.email,
-          password: data.password
+          ...data,
+          [name]: value
         })
       )).catch(err => console.error(err))
     ))
@@ -48,7 +49,7 @@ const SignUp = () => {
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item>
-        <FormControl onSubmit={handleSubmit}>
+        <FormGroup onSubmit={handleSubmit}>
           <Input
             name="username"
             value={signUp.username}
@@ -80,7 +81,7 @@ const SignUp = () => {
           <Button type="submit" fullWidth variant="contained" color="primary">
             Submit
 					</Button>
-        </FormControl>
+        </FormGroup>
       </Grid>
     </Grid >
   );
