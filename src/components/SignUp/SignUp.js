@@ -7,7 +7,7 @@ import {
   Input,
   FormHelperText,
 } from '@material-ui/core';
-import { API_TOKEN, API_URL } from '../../config';
+import { API_TOKEN, API_URL, submitSignup } from '../../config';
 
 const SignUp = () => {
   const [signUp, setSignUp] = useState({
@@ -25,31 +25,30 @@ const SignUp = () => {
     })
   };
 
-  const submitSignup = async (user) => {
-    try {
-      const newUser = {
+  /* example user
+    const testUser = {
+      username: 'someUser123',
+      email: 'someUser123@gmail.com',
+      password: 'someP@ssw3rd123'
+    }  
+  */
 
-      }
-      const req = {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-        },
-        body: JSON.stringify(signUp)
-      };
-      const res = await fetch(`${API_URL}/users/new`, req);
-      const data = await res.json();
-      console.log(data);
-      setSignUp(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const handleSubmit = () => {
+    submitSignup(signUp).then((res) => (
+      res.json().then(data => (
+        setSignUp({
+          username: data.username,
+          email: data.email,
+          password: data.password
+        })
+      )).catch(err => console.error(err))
+    ))
+  }
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item>
-        <FormControl onSubmit={submitSignup}>
+        <FormControl onSubmit={handleSubmit}>
           <Input
             name="username"
             value={signUp.username}
@@ -83,7 +82,7 @@ const SignUp = () => {
 					</Button>
         </FormControl>
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 
