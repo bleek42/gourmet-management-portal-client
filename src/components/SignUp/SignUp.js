@@ -48,7 +48,7 @@ const SignUp = () => {
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item>
+      <Grid container item>
         <FormGroup onSubmit={handleSubmit}>
           <Input
             name="username"

@@ -1,4 +1,4 @@
-import { USER_SIGNUP_REQ, USER_SIGNUP_SUCCESS, USER_SIGNUP_ERR, USER_LOGIN_REQ, USER_LOGIN_SUCCESS, USER_LOGIN_ERR } from '../Constants/userConstants';
+import { USER_SIGNUP_REQ, USER_SIGNUP_SUCCESS, USER_SIGNUP_ERR, USER_LOGIN_REQ, USER_LOGIN_SUCCESS, USER_LOGIN_ERR } from '../../Constants/userConstants';
 
 export const userSignUpReducer = (state = {}, action) => {
   switch (action.type) {
@@ -11,4 +11,4 @@ export const userSignUpReducer = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
