@@ -14,7 +14,9 @@ function App() {
       alignItems="center">
       <Grid item>
         <Switch>
-          <Link to="/signup" component={SignUp}>SignUp</Link>
+          <PdfTable />
+          {/* <Link to="/pdf" component={PdfTable}>Table</Link>
+          <Link to="/signup" component={SignUp}>SignUp</Link> */}
         </Switch>
       </Grid>
     </Grid>

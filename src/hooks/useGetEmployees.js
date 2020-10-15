@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { API_URL, API_TOKEN } from '../config';
+import { API_URL, API_TOKEN } from '../Constants/APIConstants';
 
 export const useGetEmployees = () => {
   const [getAll, setAll] = useState([]);

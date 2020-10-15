@@ -1,34 +1,67 @@
 import React, { useState, useContext, useReducer } from 'react';
+import { EMPLOYEE_LIST_REQ, EMPLOYEE_ID_REQ } from '../Constants/employeeConstants';
 
-export const GlobalState = () => {
-  const [getEmployees, setEmployees] = useState([]);
-  const [getEmployee, setEmployee] = useState(null);
+import PortalContext from './PortalContext';
+import { employeeReducer } from './Reducers/employeeReducer';
 
-  const [getProducts, setProducts] = useState([]);
-  const [getProduct, setProduct] = useState(null);
+// export const GlobalState = () => {
+//   const [getEmployees, setEmployees] = useState([]);
+//   const [getEmployee, setEmployee] = useState(null);
 
-  const [cart, setCart] = useState([]);
+//   const [getProducts, setProducts] = useState([]);
+//   const [getProduct, setProduct] = useState(null);
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+//   const [cart, setCart] = useState([]);
 
-  const addProductToCart = (product) => {
-    const updatedCart = [...cart];
-    const newItemIdx = updatedCart.findIndex((item) => item.id === product.id);
-    if (newItemIdx < 0) {
-      updatedCart.push({ ...product, quantity: 1 });
-    } else {
-      const newItem = {
-        ...updatedCart[newItemIdx],
-      };
-      newItem.quantity++;
-      updatedCart[newItemIdx] = newItem;
-    }
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(false);
+
+//   const addProductToCart = (product) => {
+//     const updatedCart = [...cart];
+//     const newItemIdx = updatedCart.findIndex((item) => item.id === product.id);
+//     if (newItemIdx < 0) {
+//       updatedCart.push({ ...product, quantity: 1 });
+//     } else {
+//       const newItem = {
+//         ...updatedCart[newItemIdx],
+//       };
+//       newItem.quantity++;
+//       updatedCart[newItemIdx] = newItem;
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <p>this is the global state!</p>
+//     </div>
+//   );
+// };
+
+const GlobalState = (props) => {
+
+  const employees = [];
+
+  const [employeeState, dispatch] = useReducer(employeeReducer, { employees: [] });
+
+  const getEmployees = () => {
+    dispatch({ type: EMPLOYEE_LIST_REQ });
+  };
+
+  const getEmployeeId = (id) => {
+    dispatch({ type: EMPLOYEE_ID_REQ, id });
   };
 
   return (
-    <div>
-      <p>this is the global state!</p>
-    </div>
+    <PortalContext.Provider
+      value={{
+        employees: employeeState.employees,
+        getEmployees: getEmployees,
+        getEmployeeId: getEmployeeId
+      }}
+    >
+      {props.children}
+    </PortalContext.Provider>
   );
 };
+
+export default GlobalState;

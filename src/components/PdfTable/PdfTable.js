@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { } from '@material-ui/core';
 // custom hook
-import { useGetEmployees } from '../../hooks/useGetEmployees';
+import PortalContext from '../../hooks/PortalContext';
 import { fetchOneEmployee, fetchAllEmployees } from '../../utils/async';
 // components
 import PdfButton from '../PdfButton/PdfButton';
@@ -23,7 +23,7 @@ import PdfButton from '../PdfButton/PdfButton';
 export default function PdfTable() {
   // const { getAll, getById, loading, error } = useGetEmployees();
   const [getAll, setAll] = useState([]);
-  const [getById, setById] = useState(0);
+  const [getById, setById] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,16 +34,13 @@ export default function PdfTable() {
           setAll(data);
         })
         .catch((err) => {
-          if (err) setError(true);
+          setError(true);
         })
         .finally(() => {
           setLoading(false);
         });
     };
-    return () => {
-      console.info('cleanup');
-      getData();
-    };
+    getData();
   }, [getAll]);
 
   if (error) {

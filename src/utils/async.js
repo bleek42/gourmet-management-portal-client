@@ -12,7 +12,7 @@ export const fetchAllEmployees = async () => {
       },
     };
     const res = await fetch(`${API_URL}/employee`, req);
-    const data = await res.JSON();
+    const data = await res.json();
     return data;
   }
   catch (err) {
@@ -29,7 +29,7 @@ export const fetchOneEmployee = async (id) => {
       },
       body: JSON.stringify(id)
     };
-    const res = await fetch(`${API_URL}/employee/${id}`);
+    const res = await fetch(`${API_URL}/employee/${id}`, req);
     const data = await res.JSON();
     return data;
   }

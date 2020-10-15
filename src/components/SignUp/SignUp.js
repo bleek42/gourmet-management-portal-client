@@ -7,7 +7,7 @@ import {
   Input,
   FormHelperText,
 } from '@material-ui/core';
-import { API_TOKEN, API_URL, submitSignup } from '../../config';
+import { API_TOKEN, API_URL, submitSignup } from '../../utils/async';
 
 const SignUp = () => {
   const [signUp, setSignUp] = useState({
@@ -18,11 +18,11 @@ const SignUp = () => {
   });
 
   const handleChange = (ev) => {
-    const { name, value } = ev.target
+    const { name, value } = ev.target;
     setSignUp({
       ...signUp,
       [name]: value,
-    })
+    });
   };
 
   /* example user
@@ -43,8 +43,8 @@ const SignUp = () => {
           [name]: value
         })
       )).catch(err => console.error(err))
-    ))
-  }
+    ));
+  };
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
