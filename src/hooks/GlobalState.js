@@ -37,13 +37,11 @@ import { employeeReducer } from './Reducers/employeeReducer';
 //   );
 // };
 
-const GlobalState = (props) => {
+const useGlobalState = (props) => {
 
-  const employees = [];
+  const [employeeState, dispatch] = useReducer(employeeReducer, { employees: [], loading: true, error: false });
 
-  const [employeeState, dispatch] = useReducer(employeeReducer, { employees: [] });
-
-  const getEmployees = () => {
+  const getEmployees = (data) => {
     dispatch({ type: EMPLOYEE_LIST_REQ });
   };
 
@@ -56,7 +54,9 @@ const GlobalState = (props) => {
       value={{
         employees: employeeState.employees,
         getEmployees: getEmployees,
-        getEmployeeId: getEmployeeId
+        getEmployeeId: getEmployeeId,
+        loading: employeeState.loading,
+        error: employeeState.error
       }}
     >
       {props.children}
@@ -64,4 +64,4 @@ const GlobalState = (props) => {
   );
 };
 
-export default GlobalState;
+export default useGlobalState;
